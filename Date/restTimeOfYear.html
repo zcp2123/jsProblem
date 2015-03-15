@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>倒计时</title>
+</head>
+<body>
+<div id="time"></div>
+<script type="text/javascript">
+    function count(){
+        var date = new Date();
+        var year = date.getFullYear();
+        var date2 = new Date(year, 11, 31, 23, 59, 59);
+        var restTime = (date2-date)/1000;
+        var restDay = Math.floor(restTime/(24*60*60));
+        var restHour = Math.floor(restTime%(24*60*60)/(60*60));
+        var restMinute = Math.floor(restTime%(24*60*60)%(60*60)/60);
+        var restSecond = Math.floor(restTime%(24*60*60)%(60*60)%60);
+        document.getElementById("time").innerText = year+"年还剩"+restDay+"天"+restHour+"时"+restMinute+"分"+restSecond+"秒";
+    }
+    setInterval(count,1000);
+</script>
+</body>
+</html>
