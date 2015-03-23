@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>函数绑定</title>
+</head>
+<body>
+<script type="text/javascript">
+    function object(o){
+        function F(){}
+        F.prototype = o;
+        return new F();
+    }
+    //if (!Function.prototype.bind) {
+        Function.prototype.bind = function (oThis) {
+            if (typeof this !== "function") {
+                // closest thing possible to the ECMAScript 5 internal IsCallable function
+                throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+            }
+
+            var aArgs = Array.prototype.slice.call(arguments, 1),
+                fToBind = this,
+                fBound = function () {
+                    return fToBind.apply(oThis,aArgs.concat(Array.prototype.slice.call(arguments)));
+                };
+
+            fBound.prototype = object(this.prototype);
+
+            return fBound;
+        };
+    //}
+    var name = "outer";
+    var myObj = {
+        name : "inner",
+        specialFunction: function () {
+        },
+        anotherSpecialFunction: function () {
+        },
+        getAsyncData: function (cb) {
+            cb();
+        },
+        render: function () {
+            /*var that = this;
+            this.getAsyncData(function () {
+                that.specialFunction();
+                that.anotherSpecialFunction();
+                alert(that.name);
+            });*/
+            this.getAsyncData(function () {
+                this.specialFunction();
+                this.anotherSpecialFunction();
+                alert(this.name);
+            }.bind(this));
+        }
+    };
+    myObj.render();
+</script>
+</body>
+</html>

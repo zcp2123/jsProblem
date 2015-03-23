@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>函数接收参数并弹出</title>
+    <style type="text/css">
+        input {
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <input class="parameter" type="text" value="北京市">
+    <input class="parameter" type="text" value="朝阳区">
+    <input id="btn" type="button" value="传参">
+    <script type="text/javascript">
+        window.onload = function(){
+            var zPar = document.getElementsByClassName("parameter");
+            var zBtn = document.getElementById("btn");
+
+            zBtn.onclick = function(){
+                alert(zPar[0].value);
+                alert(zPar[1].value);
+            }
+        }
+    </script>
+</body>
+</html>

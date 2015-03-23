@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title> 用循环将三个Div变成红色</title>
+    <style type="text/css">
+        body, input, p {
+            margin:0;
+            padding:0;
+        }
+        body {
+            font:12px/1.5 Tahoma;
+        }
+        .center {
+            width:200px;
+            margin:10px auto;
+        }
+        input {
+            margin-right:5px;
+            vertical-align:middle;
+        }
+        .tips {
+            padding:5px;
+            margin-top:5px;
+            background:#ffefa4;
+            border:1px solid #f90;
+            display:none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="center">
+        <label for="check"><input type="checkbox" id="check">两周内自动登录</label>
+        <div class="tips">为了您的信息安全，请不要在网吧或公用电脑上使用此功能</div>
+    </div>
+
+
+    <script type="text/javascript">
+        window.onload = function(){
+            var zTip = document.getElementsByClassName("tips")[0];
+            var zLabel = document.getElementsByTagName("label")[0];
+
+            zLabel.onmouseover = function(){
+                zTip.style.display = "block";
+            }
+            zLabel.onmouseout = function(){
+                zTip.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
