@@ -80,6 +80,7 @@ CreateList.prototype = {
         obj.iSpeed = obj.iSpeed > 0 ? Math.ceil(obj.iSpeed) : Math.floor(obj.iSpeed);
         obj.offsetHeight == iTarget ? (clearInterval(obj.timer), callback && callback.call(obj)) : obj.style.height = obj.offsetHeight + obj.iSpeed + "px"
     },
+    //模拟弹簧
     flex: function(obj, iTarget, callback) {
         obj.iSpeed += (iTarget - obj.offsetHeight) / 6;
         obj.iSpeed *= 0.75;
@@ -91,6 +92,7 @@ CreateList.prototype = {
         else {
             obj.style.height = obj.offsetHeight + obj.iSpeed + "px";
         }
+        console.log(obj.iSpeed + " " + obj.offsetHeight);
     },
     siblings: function(element) {
         var aTmp = [], oParent = element.parentElement || element.parentNode, i;

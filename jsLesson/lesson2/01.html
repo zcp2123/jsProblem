@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>下拉列表</title>
+    <style type="text/css">
+        .center {
+            width: 70px;
+            margin: 10px auto;
+        }
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        #list {
+            margin-top: 5px;
+            border: 1px solid #9a99ff;
+            display: none;
+        }
+        #list li {
+            width: 100%;
+            height: 24px;
+            line-height: 24px;
+        }
+        #close {
+            border-top: 1px solid #9a99ff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <button id="btn">点击弹出列表</button>
+    <ul id="list">
+        <li>item1</li>
+        <li>item2</li>
+        <li id="close">close</li>
+    </ul>
+
+</div>
+<script type="text/javascript">
+    function getStyle(obj, attr){
+        if(obj.currentStyle){
+            return obj.currentStyle[attr];
+        } else {
+            return getComputedStyle(obj,false)[attr];
+        }
+    }
+    window.onload = function(){
+        var btn = document.getElementById("btn");
+        var list = document.getElementById("list");
+        var close = document.getElementById("close");
+        var list_style = list.style;
+        btn.onclick = function(){
+            list_style.display = (getStyle(list,"display") == "none") ? "block" : "none";
+        }
+        close.onclick = function(){
+            list_style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
