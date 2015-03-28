@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>函数传参，改变Div任意属性的值</title>
+    <style type="text/css">
+        .center {
+            width: 300px;
+            margin: 10px auto;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px auto;
+        }
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: black;
+            color: #fff;
+            padding: 5px;
+            margin: 10px auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <label>属性名：<input type="text" value="background"></label>
+    <label>属性值：<input type="text" value="blue"></label>
+    <button id="sure">确定</button>
+    <button id="reset">重置</button>
+    <div id="box">
+        在上方输入框输入"属性名"及"属性值"，点击确定按钮查看效果。
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload = function(){
+        var inputs = document.getElementsByTagName("input");
+        var sure = document.getElementById("sure");
+        var reset = document.getElementById("reset");
+        var box = document.getElementById("box");
+
+        sure.onclick = function(){
+            box.style[inputs[0].value] = inputs[1].value;
+            //console.log(box.style["font-size"] + " " + box.style["fontSize"]);
+        }
+        reset.onclick = function(){
+            box.removeAttribute("style");
+        }
+    }
+</script>
+</body>
+</html>
