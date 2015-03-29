@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>单一按钮显示/隐藏一播放列表收缩展开</title>
+    <style type="text/css">
+        ul, h2 {
+            padding: 0;
+            margin: 0;
+        }
+        #list {
+            list-style-type: none;
+        }
+        .center {
+            width: 200px;
+            margin: 10px auto;
+            border: 1px solid #aaa;
+        }
+        h2 {
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid #fff;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+            background: #ced3d7 url("img/ico.gif") 180px 13px no-repeat;
+        }
+        h2.up {
+            background-position: 180px -13px;
+        }
+        #list {
+            font-size: 12px;
+        }
+        #list li a {
+            display: block;
+            background-color: #e9edf2;
+            text-decoration: none;
+            height: 25px;
+            line-height: 25px;
+            padding: 0 10px;
+            color: black;
+        }
+        #list li a:hover {
+            background-color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <h2>播放列表...</h2>
+    <ul id="list">
+        <li><a href="javascript:void(0);">玩家之徒 - 蔡依林</a></li>
+        <li><a href="javascript:void(0);">原谅我就是这样的女生 - 戴佩妮</a></li>
+        <li><a href="javascript:void(0);">猜不透 - 丁当</a></li>
+        <li><a href="javascript:void(0);">自导自演 - 周杰伦</a></li>
+        <li><a href="javascript:void(0);">浪漫窝 - 弦子</a></li>
+        <li><a href="javascript:void(0);">流年 - 王菲</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    window.onload = function(){
+        var zList = document.getElementById("list");
+        var zH = document.getElementsByTagName("h2")[0];
+        var zStyle = zList.style;
+
+        zH.onclick = function(){
+            this.className = zStyle.display == "none" ? "" : "up";
+            zStyle.display = zStyle.display == "none" ? "block" : "none";
+        }
+
+    }
+</script>
+</body>
+</html>

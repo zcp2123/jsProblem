@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title> 复选框（checkbox）全选/全不选/返选</title>
+    <style type="text/css">
+        body {
+            font-family: Tahoma;
+            font-size: 12px;
+        }
+        body, dl, dt, dd, p {
+            margin: 0;
+            padding: 0;
+        }
+        label {
+            padding: 0 10px 0 5px;
+        }
+        a {
+            color: #09f;
+            text-decoration: none;
+        }
+        a:hover {
+            color: red;
+        }
+        dl {
+            width: 120px;
+            margin: 10px auto;
+            padding: 10px 5px;
+            border: 1px solid #666;
+            border-radius: 5px;
+            background: #fafafa;
+        }
+        dt {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #666;
+        }
+        dt label {
+            font-weight: bold;
+        }
+        p {
+            margin-top: 10px;
+        }
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<dl>
+    <dt><input type="checkbox"><label>全选</label><a href="javascript:;">反选</a></dt>
+    <dd>
+        <p><input type="checkbox" name="item"><label>选项（一）</label></p>
+        <p><input type="checkbox" name="item"><label>选项（二）</label></p>
+        <p><input type="checkbox" name="item"><label>选项（三）</label></p>
+        <p><input type="checkbox" name="item"><label>选项（四）</label></p>
+        <p><input type="checkbox" name="item"><label>选项（五）</label></p>
+        <p><input type="checkbox" name="item"><label>选项（六）</label></p>
+        <p><input type="checkbox" name="item"><label>选项（七）</label></p>
+        <p><input type="checkbox" name="item"><label>选项（八）</label></p>
+        <p><input type="checkbox" name="item"><label>选项（九）</label></p>
+        <p><input type="checkbox" name="item"><label>选项（十）</label></p>
+    </dd>
+</dl>
+<p class="center">1、切换全选/全不选文字；2、根据选中个数更新全选框状态；</p>
+<script type="text/javascript">
+    window.onload = function(){
+        var checkBox = document.getElementsByTagName("input");
+        var reverse = document.getElementsByTagName("a")[0];
+        var all = document.getElementsByTagName("label")[0];
+        var isCheckAll = function(){
+            for(var i=1,count=0; i<checkBox.length; i++){
+                if(checkBox[i].checked){
+                    count++;
+                }
+            }
+            checkBox[0].checked = (count == checkBox.length - 1);
+            all.innerHTML = checkBox[0].checked ? "全不选" : "全选";
+        }
+        checkBox[0].onclick = function(){
+            for(var i=1; i<checkBox.length; i++){
+                checkBox[i].checked = this.checked;
+            }
+            isCheckAll();
+        }
+        reverse.onclick = function(){
+            for(var i=1; i<checkBox.length; i++){
+                checkBox[i].checked = !checkBox[i].checked;
+            }
+            isCheckAll();
+        }
+        for(var i=1; i<checkBox.length; i++){
+            checkBox[i].onclick = function(){
+                isCheckAll();
+            }
+        }
+    }
+
+
+</script>
+</body>
+</html>
