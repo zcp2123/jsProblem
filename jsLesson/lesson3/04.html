@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>输入两个数字，比较大小</title>
+    <style type="text/css">
+        body {
+            font: 12px/1.5 Courier New;
+            text-align: center;
+        }
+        span {
+            color: red;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text">
+    <strong>vs</strong>
+    <input type="text">
+    <button>最大的数是>></button>
+    <span>?</span>
+    <script type="text/javascript">
+        window.onload = function(){
+            var zInput = document.getElementsByTagName("input");
+            var zBtn = document.getElementsByTagName("button")[0];
+            var zSpan = document.getElementsByTagName("span")[0];
+
+            for(var i=0; i<zInput.length; i++){
+                zInput[i].onkeyup = function(){
+                    this.value = this.value.replace(/[^\d]/g,"");
+                }
+            }
+
+            zBtn.onclick = function(){
+                if(zInput[0].value == "" || zInput[1].value == ""){
+                    alert("请输入数字");
+                } else {
+                    var num1 = parseInt(zInput[0].value);
+                    var num2 = parseInt(zInput[1].value);
+                    zSpan.innerHTML = num1 > num2 ? num1 : num2;
+                }
+
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>简易网页时钟</title>
+    <style type="text/css">
+        #clock {
+            width: 300px;
+            margin: 10px auto;
+            padding: 20px 0;
+            text-align: center;
+            background-color: black;
+            color: white;
+            font: 16px/1.5 Arial;
+        }
+        #clock span {
+            width: 80px;
+            background-color: white;
+            color: black;
+            padding: 5px 10px;
+            margin: 0 10px;
+            border: 2px solid gray;
+        }
+        #clock input {
+            cursor: pointer;
+            width: 283px;
+            height: 50px;
+            margin-top: 20px;
+            background: url("img/btn-1.png");
+            border: 0;
+        }
+        #clock input.cancel {
+            background-position: 0 -50px;
+        }
+    </style>
+</head>
+<body>
+<div id="clock">
+    <span>00</span>分钟<span>04</span>秒
+    <input id="on" type="button">
+</div>
+<script type="text/javascript">
+    window.onload = function(){
+        var zSpan = document.getElementsByTagName("span");
+        var zBtn = document.getElementById("on");
+        var timer = null;
+
+        var time = parseInt(zSpan[0].innerHTML.replace(/^[0]/,"")) * 60 + parseInt(zSpan[1].innerHTML.replace(/^[0]/,""));
+
+        function updateTime(){
+            if(time <= 0){
+                clearInterval(timer);
+                zBtn.className = "";
+                return;
+            }
+            time--;
+            zSpan[0].innerHTML = parseInt(time / 60).toString().replace(/^(\d)$/,"0$1");
+            zSpan[1].innerHTML = parseInt(time % 60).toString().replace(/^(\d)$/,"0$1");
+        }
+
+        zBtn.onclick = function(){
+            var flag = this.className == "";
+            this.className = flag ? "cancel" : "";
+            flag ? (timer = setInterval(updateTime,1000), updateTime()) : clearInterval(timer);
+        }
+    }
+</script>
+</body>
+</html>

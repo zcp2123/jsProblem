@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>网页计算器</title>
+    <style type="text/css">
+        body, ul, li, p, input {
+            margin: 0;
+            padding: 0;
+        }
+        .cal {
+            width: 300px;
+            margin: 10px auto;
+        }
+        .cal p {
+            background-color: black;
+            color: white;
+            font: 12px/2 Courier New;
+            text-align: right;
+            padding: 0 5px;
+        }
+        #expression {
+            border: 0;
+            width: 280px;
+            text-align: right;
+            padding: 0px 15px 0px 5px;
+            font: 12px/1.5 Courier New;
+            background: url("img/inputBg.jpg") repeat-x;
+        }
+        #content {
+            border: 0;
+            width: 290px;
+            text-align: right;
+            padding: 0px 5px;
+            font: bold 40px/64px Courier New;
+            background: url("img/inputBg.jpg") repeat-x;
+        }
+        .cal ul {
+            list-style-type: none;
+            background: url("img/bg.jpg");
+            padding: 0px 0px 15px 8px;
+            overflow: hidden;
+            *zoom: 1;
+        }
+        .cal li{
+            float: left;
+            width: 63px;
+            height: 41px;
+            margin: 17px 10px 0 0;
+        }
+        .cal li a {
+            display: inline-block;
+            width: 63px;
+            height: 41px;
+            font: bold 24px/41px Courier New;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            background: url("img/btn.png") no-repeat;
+        }
+        .cal li a:hover {
+            background-position: -63px 0;
+        }
+        .cal li.btn-1 a {
+            background-position: 0 -41px;
+        }
+        .cal li.btn-1 a:hover {
+            background-position: -63px -41px;
+        }
+        .cal li.btn-2 {
+            float: right;
+            height: 99px;
+        }
+        .cal li.btn-2 a {
+            height: 99px;
+            line-height: 99px;
+            background-position: 0 -164px;
+        }
+        .cal li.btn-2 a:hover {
+            background-position: -63px -164px;
+        }
+        .cal li.btn-3 {
+            width: 136px;
+        }
+        .cal li.btn-3 a {
+            width: 136px;
+            background-position: 0 -82px;
+        }
+        .cal li.btn-3 a:hover {
+            background-position: 0 -121px;
+        }
+    </style>
+</head>
+<body>
+<div class="cal">
+    <p>By-zcp</p>
+    <input id="expression" type="text" readonly>
+    <input id="content" type="text" readonly maxlength="8" value="0">
+    <ul>
+        <li class="btn-1">
+            <a href="javascript:;">C</a>
+        </li>
+        <li class="btn-1">
+            <a href="javascript:;">%</a>
+        </li>
+        <li class="btn-1">
+            <a href="javascript:;">÷</a>
+        </li>
+        <li class="btn-1">
+            <a href="javascript:;">×</a>
+        </li>
+        <li>
+            <a href="javascript:;">7</a>
+        </li>
+        <li>
+            <a href="javascript:;">8</a>
+        </li>
+        <li>
+            <a href="javascript:;">9</a>
+        </li>
+        <li class="btn-1">
+            <a href="javascript:;">-</a>
+        </li>
+        <li>
+            <a href="javascript:;">4</a>
+        </li>
+        <li>
+            <a href="javascript:;">5</a>
+        </li>
+        <li>
+            <a href="javascript:;">6</a>
+        </li>
+        <li class="btn-1">
+            <a href="javascript:;">+</a>
+        </li>
+        <li>
+            <a href="javascript:;">1</a>
+        </li>
+        <li>
+            <a href="javascript:;">2</a>
+        </li>
+        <li>
+            <a href="javascript:;">3</a>
+        </li>
+        <li class="btn-2">
+            <a href="javascript:;">=</a>
+        </li>
+        <li class="btn-3">
+            <a href="javascript:;">0</a>
+        </li>
+        <li>
+            <a href="javascript:;">.</a>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    window.onload = function() {
+        var zExpression = document.getElementById("expression");
+        var zContent = document.getElementById("content");
+        var zA = document.getElementsByTagName("a");
+        var flag = false;//标记content中的值是否移至expression
+        var isResult = false;//标记是否按下=
+
+        for(var i=0; i<zA.length; i++) {
+            zA[i].onclick = function() {
+                var text = this.innerHTML;
+                switch(text) {
+                    case 'C':
+                        flag = false;
+                        zExpression.value = '';
+                        zContent.value = 0;
+                        break;
+                    case '%':
+                        count('%');
+                        break;
+                    case '÷':
+                        count('/');
+                        break;
+                    case '×':
+                        count('*');
+                        break;
+                    case '-':
+                        count('-');
+                        break;
+                    case '+':
+                        count('+');
+                        break;
+                    case '.':
+                        //如果没有.或者运算符，加上.
+                        /[.\%\/\*\-\+]/.test(zContent.value) || (zContent.value += '.');
+                        break;
+                    case '=':
+                        //如果还未按下=，计算表达式的值
+                        isResult || (zContent.value = /[\%\/\*\-\+]/.test(zContent.value) ? eval(zExpression.value.replace(/[\%\/\*\-\+]$/,"")) : eval(zExpression.value + zContent.value.replace(/[.]$/,"")));
+                        zContent.value = zContent.value.substr(0, 12);
+                        zExpression.value = "";
+                        flag = false;
+                        isResult = true;
+                        break
+                    default :
+                        //输入数字，没有.，清除数字开始的0
+                        /[.]/.test(zContent.value) || (zContent.value = zContent.value.replace(/^[0]/,""));
+                        //已按下=或者content中是运算符，则直接覆盖content，否则加在content后面
+                        if(zContent.value.length < 12) {
+                            (isResult || /[\%\/\*\-\+]/.test(zContent.value)) ? zContent.value = text : zContent.value += text;
+                        }
+                        isResult = false;
+                        flag = false;
+                        break;
+                }
+            }
+        }
+
+        function count(char) {
+            if(flag) {
+                //content已经移至expression，修改expression最后面的运算符
+                zExpression.value = zExpression.value.replace(/[\%\/\*\-\+]$/,char);
+                zContent.value = char;
+            } else {
+                //$防止负数的"-"被匹配
+                zContent.value = zContent.value.replace(/Infinity|undefined|NaN/g,"0");
+                /[\%\/\*\-\+]$/.test(zContent.value) || (zExpression.value += zContent.value.replace(/[.]$/,"") + char);
+                zContent.value = char;
+                flag = true;
+            }
+            isResult = false;
+        }
+    }
+</script>
+</body>
+</html>

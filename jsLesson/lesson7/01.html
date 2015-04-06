@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>自动轮播广告（缓冲效果）</title>
+    <style type="text/css">
+        body, ul, li, div {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            background-color: black;
+            text-align: center;
+            font: 12px/1.5 Courier New;
+        }
+        ul {
+            list-style-type: none;
+        }
+        .center {
+            width: 492px;
+            height: 172px;
+            margin: 0 auto;
+            border: 8px solid white;
+            border-radius: 5px;
+        }
+        .center .list {
+            position: relative;
+            width: 490px;
+            height: 170px;
+            overflow: hidden;
+            border: 1px solid gray;
+        }
+        .center .list .imgList {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .center .list .imgList li {
+            width: 490px;
+            height: 170px;
+            overflow: hidden;
+        }
+        .center .list .imgList li img {
+            width: 490px;
+            height: 170px;
+        }
+        .center .list .numList {
+            position: absolute;
+            right: 0;
+            bottom: 5px;
+        }
+        .center .list .numList li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            border-radius: 20px;
+            color: white;
+            background-color: #f90;
+            cursor: pointer;
+            margin-right: 5px;
+            opacity:0.7;
+            filter:alpha(opacity=70);
+        }
+        .center .list .numList li.current {
+            background-color: #f60;
+            opacity:1;
+            filter:alpha(opacity=100);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <div class="list">
+        <ul class="imgList">
+            <li><img src="img/01.jpg"></li>
+            <li><img src="img/02.jpg"></li>
+            <li><img src="img/03.jpg"></li>
+            <li><img src="img/04.jpg"></li>
+            <li><img src="img/05.jpg"></li>
+        </ul>
+        <ul class="numList">
+            <li class="current">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload = function(){
+        var list = document.getElementsByClassName("list")[0];
+        var imgList = document.getElementsByClassName("imgList")[0];
+        var zImg = imgList.getElementsByTagName("img");
+        var numBtn = document.getElementsByClassName("numList")[0].getElementsByTagName("li");
+
+        var zOrder = true;//标记轮播顺序
+        var timer = null;
+        var autoMove = null;
+        var index = 0;
+
+        function startMove(target){
+            clearInterval(timer);
+            timer = setInterval(function(){
+                move(target);
+            },30);
+        }
+
+        function move(target) {
+            var speed = (target - imgList.offsetTop) / 6;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+            imgList.offsetTop == target ? clearInterval(timer) : imgList.style.top = imgList.offsetTop + speed + "px";
+        }
+
+        function next(){
+            zOrder ? index++ : index--;
+            index <= 0 && (index = 0, zOrder = true);
+            index >= numBtn.length -1 && (index = numBtn.length -1, zOrder = false);
+            for(var j=0; j<numBtn.length; j++){
+                numBtn[j].className = "";
+            }
+            numBtn[index].className = "current";
+            startMove(-(index * zImg[0].offsetHeight));
+        }
+
+        autoMove = setInterval(next, 2000);
+
+        list.onmouseover = function(){
+            clearInterval(autoMove);
+        }
+
+        list.onmouseout = function(){
+            autoMove = setInterval(next, 2000);
+        }
+
+        for(var i=0; i<numBtn.length; i++){
+            numBtn[i].index = i;
+            numBtn[i].onmouseover = function(){
+                for(var j=0; j<numBtn.length; j++){
+                    numBtn[j].className = "";
+                }
+                this.className = "current";
+                index = this.index;
+                startMove(-(index * zImg[0].offsetHeight));
+            }
+        }
+    }
+</script>
+</body>
+</html>

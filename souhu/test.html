@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <p style="background-color: black; width: 100px; height: 100px" ></p>
+    <p style="background-color: black; width: 100px; height: 100px" ></p>
+    <p style="background-color: black; width: 100px; height: 100px" ></p>
+    <p style="background-color: black; width: 100px; height: 100px" ></p>
+    <p style="background-color: black; width: 100px; height: 100px" ></p>
+<script type="text/javascript">
+    function zip(){
+        if(arguments.length > 0){
+            var max = 0;
+            for(var k=0; k<arguments.length; k++){
+                if(arguments[k].length > max){
+                    max = arguments[k].length;
+                }
+            }
+            var arr = [];
+            for(var j=0; j<max; j++){
+                var item = [];
+                for(var i=0; i<arguments.length; i++){
+                    if(!arguments[i][j]){
+                        item.push("");//不存在取为""
+                    } else {
+                        item.push(arguments[i][j]);
+                    }
+                }
+                arr.push(item);
+            }
+            return arr;
+        } else {
+            return [];
+        }
+
+
+    }
+</script>
+</body>
+</html>

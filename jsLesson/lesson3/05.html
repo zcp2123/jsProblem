@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>页面加载后累加，自加1</title>
+    <style type="text/css">
+        body {
+            text-align: center;
+        }
+        span {
+            color: black;
+            font-size: 30px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<span></span>
+<script type="text/javascript">
+    window.onload = function(){
+        var zSpan = document.getElementsByTagName("span")[0];
+        var i = 0;
+        function add1(){
+            zSpan.innerHTML = ++i;
+        }
+        add1();
+        setInterval(add1,1000);
+    }
+</script>
+</body>
+</html>

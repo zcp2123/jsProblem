@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>简易网页时钟</title>
+    <style type="text/css">
+        #clock {
+            width: 300px;
+            margin: 10px auto;
+            padding: 20px 0;
+            text-align: center;
+            background-color: black;
+            color: white;
+            font: 16px/1.5 Arial;
+        }
+        #clock span {
+            width: 80px;
+            background-color: white;
+            color: black;
+            padding: 5px 10px;
+            margin: 0 10px;
+            border: 2px solid gray;
+        }
+    </style>
+</head>
+<body>
+<div id="clock">
+    <span></span>点<span></span>分<span></span>秒
+</div>
+<script type="text/javascript">
+    window.onload = function(){
+        var zSpan = document.getElementsByTagName("span");
+
+        function getTime(){
+            var date = new Date();
+            return [date.getHours(), date.getMinutes(), date.getSeconds()];
+        }
+
+        function showTime(){
+            var arr = getTime();
+            for(var i=0; i<zSpan.length; i++){
+                zSpan[i].innerHTML = arr[i].toString().length == 1 ? ("0" + arr[i]) : arr[i];
+                //zSpan[i].innerHTML = arr[i].toString().replace(/^(\d)$/,"0$1"); /^(\d)$/匹配单个数字
+            }
+        }
+
+        showTime();
+        setInterval(showTime,1000);
+    }
+</script>
+</body>
+</html>

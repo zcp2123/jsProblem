@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function heapAdjust(arr, target, len) {
+        var child = target * 2 + 1;
+        var tmp = arr[target];
+
+        while(child < len) {
+            if(child + 1 < len && arr[child + 1] > arr[child]) {
+                child++;
+            }
+            if(arr[child] > arr[target]) {
+                arr[target] = arr[child];
+                target = child;
+                child = child * 2 + 1;
+                arr[target] = tmp;
+            } else {
+                break;
+            }
+        }
+        console.log(arr.toString());
+    }
+
+    function buildHeap(arr) {
+        var len = arr.length;
+        for(var i=Math.floor((len-1)/2); i>=0; i--) {
+            heapAdjust(arr, i, len);
+        }
+    }
+
+    function heapSort(arr) {
+        var len = arr.length;
+        buildHeap(arr);
+
+        for(var i=len-1; i>=0; i--){
+            var tmp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = tmp;
+            heapAdjust(arr, 0, i);
+        }
+    }
+    var arr = [49,36,65,97,76,13,27,49];
+    heapSort(arr);
+</script>
+</body>
+</html>
